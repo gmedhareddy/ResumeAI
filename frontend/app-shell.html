@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — App Shell</title>
+<link rel="stylesheet" href="app-shell.css">
+</head>
+<body>
+
+<div class="pf-page">
+  <div class="pf-glow"></div>
+  <div class="pf-glow-l"></div>
+  <div class="pf-glow-r"></div>
+
+  <div class="pf-container">
+    <header class="pf-header">
+      <div>
+        <div class="pf-name" id="pf-name"></div>
+        <div class="pf-headline" id="pf-headline"></div>
+      </div>
+    </header>
+
+    <div class="pf-card">
+      <nav class="pf-nav">
+        <div class="pf-tabs">
+          <button class="pf-tab active" data-tab="about">ABOUT ME</button>
+          <button class="pf-tab" data-tab="cv">CV</button>
+          <button class="pf-tab" data-tab="projects">PROJECTS</button>
+        </div>
+        <div class="pf-socials" id="pf-socials"></div>
+      </nav>
+
+      <div class="pf-panel">
+        <!-- ABOUT -->
+        <div class="pf-tabpanel active" data-panel="about" id="panel-about"></div>
+        <!-- CV -->
+        <div class="pf-tabpanel" data-panel="cv" id="panel-cv"></div>
+        <!-- PROJECTS -->
+        <div class="pf-tabpanel" data-panel="projects" id="panel-projects"></div>
+      </div>
+    </div>
+
+    <footer class="pf-footer">
+      <span>Built with</span><span class="grad-text">ResumeAI</span>
+    </footer>
+  </div>
+</div>
+
+<script src="portfolio-data.js"></script>
+<script src="app-shell.js"></script>
+</body>
+</html>

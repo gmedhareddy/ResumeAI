@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Builder — ResumeAI</title>
+<meta name="description" content="Build an ATS-optimized resume from scratch with AI assistance, even if you don't have one yet.">
+<!-- Reuses the existing site theme/design tokens unchanged -->
+<link rel="stylesheet" href="style.css">
+<!-- New, page-scoped stylesheet for the builder only -->
+<link rel="stylesheet" href="resume-builder.css">
+<!-- docx.js + FileSaver: client-side .docx generation (deferred, page still works without it — PDF export doesn't need it) -->
+<script defer src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<!-- PDF.js + Mammoth: client-side text extraction for the Document Intelligence upload (same libraries/pattern as the main dashboard's resume upload in app.js) -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mammoth.js/1.6.0/mammoth.browser.min.js"></script>
+</head>
+<body class="rb-body">
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-logo" onclick="location.href='index.html'">
+      <div class="sb-logo-i">R</div><div class="sb-logo-t">ResumeAI</div>
+    </div>
+    <nav class="sbnav" id="rb-sidenav"><!-- rendered by JS --></nav>
+    <div class="sbfoot">
+      <button class="btn-lo" style="background:var(--pl);border-color:rgba(56,189,248,.25);color:var(--p)" onclick="location.href='index.html'">← Back to Dashboard</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="tb-title">🧩 AI Resume Builder</div>
+        <div class="tb-sub">No resume yet? Answer a few steps and let AI do the heavy lifting.</div>
+      </div>
+      <button class="btn-up" id="rb-load-btn" onclick="rbOpenSavedList()">📂 Load Saved</button>
+    </div>
+
+    <!-- ═══════ WIZARD ═══════ -->
+    <div id="rb-wizard">
+      <div class="rb-mobile-select">
+        <select id="rb-mobile-step" onchange="rbGoToStep(parseInt(this.value,10))"></select>
+      </div>
+
+      <div class="rb-progress-wrap">
+        <div class="rb-progress-top">
+          <span class="rb-progress-label" id="rb-progress-label">Step 1 of 10</span>
+          <span class="rb-progress-pct" id="rb-progress-pct">10%</span>
+        </div>
+        <div class="rb-progress-bar"><div class="rb-progress-fill" id="rb-progress-fill" style="width:10%"></div></div>
+      </div>
+
+      <div class="rb-card">
+        <div id="rb-step-body"><!-- rendered by JS --></div>
+
+        <div class="rb-nav-row">
+          <div class="rb-left">
+            <button class="rb-btn rb-btn-out" id="rb-back-btn" onclick="rbPrevStep()">← Back</button>
+          </div>
+          <div class="rb-right">
+            <button class="rb-btn rb-btn-ghost" onclick="rbSaveDraft(true)">💾 Save Draft</button>
+            <button class="rb-btn rb-btn-pri" id="rb-next-btn" onclick="rbNextStep()">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ RESULT / PREVIEW ═══════ -->
+    <div id="rb-result" style="display:none">
+      <div class="rb-card" style="margin-bottom:16px">
+        <div class="rb-step-title">🎨 Choose a Template</div>
+        <div class="rb-step-sub">Switch anytime — your live preview updates instantly.</div>
+        <div class="rb-tpl-grid">
+          <div class="rb-tpl-card on" data-tpl="modern" onclick="rbSelectTemplate('modern')">
+            <div class="rb-tpl-swatch modern"></div><div class="rb-tpl-name">Modern</div>
+          </div>
+          <div class="rb-tpl-card" data-tpl="professional" onclick="rbSelectTemplate('professional')">
+            <div class="rb-tpl-swatch professional"></div><div class="rb-tpl-name">Professional</div>
+          </div>
+          <div class="rb-tpl-card" data-tpl="minimal" onclick="rbSelectTemplate('minimal')">
+            <div class="rb-tpl-swatch minimal"></div><div class="rb-tpl-name">Minimal</div>
+          </div>
+          <div class="rb-tpl-card" data-tpl="standard-ats" onclick="rbSelectTemplate('standard-ats')">
+            <div class="rb-tpl-swatch standard-ats"></div><div class="rb-tpl-name">Standard ATS</div>
+          </div>
+          <div class="rb-tpl-card" data-tpl="google" onclick="rbSelectTemplate('google')">
+            <div class="rb-tpl-swatch google"></div><div class="rb-tpl-name">Google Style</div>
+          </div>
+          <div class="rb-tpl-card" data-tpl="microsoft" onclick="rbSelectTemplate('microsoft')">
+            <div class="rb-tpl-swatch microsoft"></div><div class="rb-tpl-name">Microsoft Style</div>
+          </div>
+          <div class="rb-tpl-card" data-tpl="amazon" onclick="rbSelectTemplate('amazon')">
+            <div class="rb-tpl-swatch amazon"></div><div class="rb-tpl-name">Amazon Style</div>
+          </div>
+          <div class="rb-tpl-card" data-tpl="onecolumn" onclick="rbSelectTemplate('onecolumn')">
+            <div class="rb-tpl-swatch onecolumn"></div><div class="rb-tpl-name">One-Column Pro</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rb-card" style="margin-bottom:16px">
+        <div class="sh fbet" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div><div class="rb-step-title" style="margin-bottom:2px">📄 Live Preview</div><div class="rb-step-sub" style="margin-bottom:0">Edit anything before you download.</div></div>
+          <button class="rb-btn rb-btn-out" onclick="rbEditResume()">✏️ Edit Resume</button>
+        </div>
+        <div class="rb-preview-shell">
+          <div class="rb-preview-tb">
+            <div class="rb-dot" style="background:#fb7185"></div><div class="rb-dot" style="background:#fbbf24"></div><div class="rb-dot" style="background:#34e0c7"></div>
+            <span style="margin-left:8px;font-size:11.5px;color:var(--t2)">Resume Preview</span>
+          </div>
+          <div class="rb-preview-body" id="rb-preview-body"><!-- rendered by JS --></div>
+        </div>
+        <div class="rb-actions-grid" style="grid-template-columns:1fr 1fr;margin-top:14px">
+          <button class="rb-btn rb-btn-pri" onclick="rbDownloadPDF()">⬇️ Download PDF</button>
+          <button class="rb-btn rb-btn-out" onclick="rbDownloadDOCX()">⬇️ Download DOCX</button>
+          <button class="rb-btn rb-btn-out" onclick="rbDownloadPlainText()">⬇️ Plain Text</button>
+          <button class="rb-btn rb-btn-out" onclick="rbDownloadATSText()">⬇️ ATS Text Version</button>
+        </div>
+      </div>
+
+      <div class="rb-card">
+        <div class="rb-step-title">🚀 Next Steps</div>
+        <div class="rb-step-sub">Powered by ResumeAI's existing AI modules — no re-upload needed.</div>
+        <div class="rb-actions-grid">
+          <div class="rb-action-card" onclick="rbSaveResume()">
+            <span class="rb-action-i">💾</span><div class="rb-action-t">Save Resume</div>
+            <div class="rb-action-d">Keep a copy to edit later</div>
+          </div>
+          <div class="rb-action-card" onclick="rbOpenSavedList()">
+            <span class="rb-action-i">📂</span><div class="rb-action-t">Edit Resume Later</div>
+            <div class="rb-action-d">Reopen a saved draft</div>
+          </div>
+          <div class="rb-action-card" onclick="rbAnalyzeNow()">
+            <span class="rb-action-i">🤖</span><div class="rb-action-t">Run ATS Analysis</div>
+            <div class="rb-action-d">Score, gaps &amp; roadmap — automatic</div>
+          </div>
+          <div class="rb-action-card" onclick="rbGenerateCoverLetter()">
+            <span class="rb-action-i">✉️</span><div class="rb-action-t">Generate Cover Letter</div>
+            <div class="rb-action-d">Tailored to your target role</div>
+          </div>
+          <div class="rb-action-card" onclick="rbGenerateLinkedIn()">
+            <span class="rb-action-i">💼</span><div class="rb-action-t">Generate LinkedIn Summary</div>
+            <div class="rb-action-d">Ready-to-paste "About" section</div>
+          </div>
+          <div class="rb-action-card" onclick="rbGeneratePortfolio()">
+            <span class="rb-action-i">🌐</span><div class="rb-action-t">Generate Portfolio Website</div>
+            <div class="rb-action-d">Auto-built from this resume</div>
+          </div>
+          <div class="rb-action-card" onclick="rbOpenCompanyModal()">
+            <span class="rb-action-i">🏢</span><div class="rb-action-t">Company-Specific Resume</div>
+            <div class="rb-action-d">Tailor bullets for TCS, Amazon, Google &amp; more</div>
+          </div>
+          <div class="rb-action-card" onclick="rbOpenProfileScoreModal()">
+            <span class="rb-action-i">📊</span><div class="rb-action-t">Professional Profile Score</div>
+            <div class="rb-action-d">LinkedIn, GitHub &amp; overall score out of 100</div>
+          </div>
+          <div class="rb-action-card" onclick="rbOpenTrendingModal()">
+            <span class="rb-action-i">🔥</span><div class="rb-action-t">Trending Technologies</div>
+            <div class="rb-action-d">New &amp; in-demand tech for your target role right now</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════ Saved resumes modal ═══════ -->
+<div class="rb-modal-bg" id="rb-saved-modal">
+  <div class="rb-modal">
+    <div class="rb-modal-head">
+      <div class="rb-modal-title">📂 Saved Resumes</div>
+      <button class="rb-modal-close" onclick="rbCloseModal('rb-saved-modal')">✕</button>
+    </div>
+    <div id="rb-saved-list-body"><div class="rb-empty-note">No saved resumes yet.</div></div>
+  </div>
+</div>
+
+<!-- ═══════ AI text output modal (cover letter / LinkedIn) ═══════ -->
+<div class="rb-modal-bg" id="rb-text-modal">
+  <div class="rb-modal">
+    <div class="rb-modal-head">
+      <div class="rb-modal-title" id="rb-text-modal-title">Generated Content</div>
+      <button class="rb-modal-close" onclick="rbCloseModal('rb-text-modal')">✕</button>
+    </div>
+    <div id="rb-text-modal-body"><div class="rb-modal-loading">✨ Generating…</div></div>
+  </div>
+</div>
+
+<!-- ═══════ Document Intelligence modal (internship certs/offer letters/reports → auto-fill) ═══════ -->
+<div class="rb-modal-bg" id="rb-doc-modal">
+  <div class="rb-modal">
+    <div class="rb-modal-head">
+      <div class="rb-modal-title">📄 Import from Document</div>
+      <button class="rb-modal-close" onclick="rbCloseModal('rb-doc-modal')">✕</button>
+    </div>
+    <div id="rb-doc-modal-body"></div>
+  </div>
+</div>
+
+<!-- Hidden, print-only container used for PDF export -->
+<div id="rb-print-area"></div>
+
+<script src="resume-builder.js"></script>
+</body>
+</html>

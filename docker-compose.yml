@@ -1,0 +1,17 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:5000"
+    environment:
+      PORT: "5000"
+      FLASK_DEBUG: "false"
+    restart: unless-stopped

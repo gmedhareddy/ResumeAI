@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — ResumeAI</title>
+<style>
+  :root{ --bg:#08090D; --text:#F4F5F7; --teal:#2DD4BF; --violet:#8B5CF6; --line:rgba(255,255,255,0.10); }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);height:100%;font-family:'Inter',sans-serif;}
+  .switcher-bar{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:12px; background:rgba(8,9,13,0.85); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .switcher-btn{
+    appearance:none; border:1px solid var(--line); background:transparent; color:#9499A6;
+    padding:8px 18px; border-radius:999px; font-size:13px; font-weight:600; cursor:pointer;
+    transition:all .15s ease; font-family:inherit;
+  }
+  .switcher-btn:hover{ color:var(--text); border-color:var(--teal); }
+  .switcher-btn.active{
+    color:#08090D; background:linear-gradient(135deg,var(--teal),var(--violet)); border-color:transparent;
+  }
+  .pf-frame-wrap{ position:fixed; top:52px; left:0; right:0; bottom:0; }
+  iframe{ width:100%; height:100%; border:0; display:block; background:var(--bg); }
+</style>
+</head>
+<body>
+
+<div class="switcher-bar">
+  <button class="switcher-btn active" id="btn-appshell" onclick="switchTemplate('appshell')">App Shell</button>
+  <button class="switcher-btn" id="btn-editorial" onclick="switchTemplate('editorial')">Editorial</button>
+</div>
+
+<div class="pf-frame-wrap">
+  <iframe id="pf-frame" src="app-shell.html" title="Portfolio preview"></iframe>
+</div>
+
+<script>
+  const FRAME = document.getElementById('pf-frame');
+  const SRC = { appshell: 'app-shell.html', editorial: 'editorial.html' };
+
+  function switchTemplate(key) {
+    FRAME.src = SRC[key];
+    document.getElementById('btn-appshell').classList.toggle('active', key === 'appshell');
+    document.getElementById('btn-editorial').classList.toggle('active', key === 'editorial');
+  }
+
+  // Allow linking directly to a template, e.g. portfolio.html?t=editorial
+  const params = new URLSearchParams(window.location.search);
+  const initial = params.get('t');
+  if (initial && SRC[initial]) switchTemplate(initial);
+</script>
+
+</body>
+</html>

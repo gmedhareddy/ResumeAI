@@ -1,0 +1,324 @@
+/* ══════════════════════════════════════════
+   Resume Builder — page-specific styles
+   Reuses design tokens (--bg, --p, --a, etc.) from style.css.
+   All classes are prefixed "rb-" so nothing here can collide
+   with, or override, any existing selector in style.css.
+   ══════════════════════════════════════════ */
+
+.rb-body { background: var(--bg); min-height: 100vh; }
+
+/* ── Step progress ── */
+.rb-progress-wrap { margin-bottom: 18px; }
+.rb-progress-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.rb-progress-label { font-size: 12.5px; color: var(--t2); font-weight: 600; }
+.rb-progress-pct { font-size: 12.5px; color: var(--p); font-weight: 700; }
+.rb-progress-bar { height: 6px; border-radius: 20px; background: var(--bg3); overflow: hidden; }
+.rb-progress-fill { height: 100%; border-radius: 20px; background: linear-gradient(135deg, var(--p), var(--a)); transition: width .3s ease; }
+
+/* ── Step card ── */
+.rb-card { background: var(--bg2); border: 1px solid var(--br2); border-radius: var(--rl); padding: 22px 24px; }
+.rb-step-title { font-size: 19px; font-weight: 800; margin-bottom: 3px; }
+.rb-step-sub { font-size: 13px; color: var(--t2); margin-bottom: 20px; }
+.rb-ai-hint {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 18px;
+  padding: 10px 14px; border-radius: 9px; background: var(--pl);
+  border: 1px solid rgba(56,189,248,.2); font-size: 12.5px; color: var(--t2);
+}
+
+.rb-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.rb-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+@media (max-width: 700px) { .rb-grid2, .rb-grid3 { grid-template-columns: 1fr; } }
+
+.rb-fg { margin-bottom: 15px; }
+.rb-fg label {
+  display: block; font-size: 10.5px; font-weight: 700; color: var(--t3);
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: .8px;
+}
+.rb-fg input, .rb-fg textarea, .rb-fg select {
+  width: 100%; padding: 11px 13px; border-radius: var(--rs);
+  border: 1px solid var(--br2); background: var(--bg3);
+  color: var(--t); font-size: 14px; font-family: 'Inter', sans-serif;
+  outline: none; transition: border-color .2s, box-shadow .2s; resize: vertical;
+  box-sizing: border-box;
+}
+.rb-fg input:focus, .rb-fg textarea:focus, .rb-fg select:focus {
+  border-color: var(--p); box-shadow: 0 0 0 3px rgba(56,189,248,.15);
+}
+.rb-fg textarea { min-height: 92px; line-height: 1.6; }
+.rb-fg .rb-optional { color: var(--t3); font-weight: 500; text-transform: none; letter-spacing: 0; }
+
+/* ── Repeatable entry cards (education / projects / experience / certs) ── */
+.rb-entry {
+  border: 1px solid var(--br2); border-radius: var(--r); padding: 16px;
+  background: var(--bg3); margin-bottom: 14px; position: relative;
+}
+.rb-entry-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.rb-entry-tag { font-size: 11px; font-weight: 800; letter-spacing: .5px; color: var(--p); text-transform: uppercase; }
+.rb-entry-remove {
+  background: rgba(251,113,133,.1); border: 1px solid rgba(251,113,133,.25);
+  color: var(--err); border-radius: 7px; width: 26px; height: 26px; cursor: pointer;
+  font-size: 13px; line-height: 1; display: flex; align-items: center; justify-content: center;
+}
+.rb-entry-remove:hover { background: rgba(251,113,133,.2); }
+.rb-add-btn {
+  width: 100%; padding: 12px; border-radius: var(--rs); cursor: pointer;
+  border: 1.5px dashed rgba(56,189,248,.35); background: transparent; color: var(--p);
+  font-size: 13px; font-weight: 700; font-family: 'Space Grotesk', sans-serif;
+  transition: background .15s;
+}
+.rb-add-btn:hover { background: var(--pl); }
+
+.rb-ai-btn {
+  padding: 7px 13px; border-radius: 7px; cursor: pointer; border: 1px solid rgba(56,189,248,.35);
+  background: var(--pl); color: var(--p); font-size: 11.5px; font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif; display: inline-flex; align-items: center; gap: 5px;
+  transition: background .15s;
+}
+.rb-ai-btn:hover:not(:disabled) { background: rgba(56,189,248,.22); }
+.rb-ai-btn:disabled { opacity: .55; cursor: wait; }
+
+/* ── Chip inputs (skills / achievements / languages / interests) ── */
+.rb-chipbar { display: flex; gap: 8px; margin-bottom: 12px; }
+.rb-chipbar input { flex: 1; }
+.rb-chipbar button { flex-shrink: 0; }
+.rb-chips { display: flex; flex-wrap: wrap; gap: 8px; min-height: 20px; }
+.rb-chip {
+  display: inline-flex; align-items: center; gap: 7px; padding: 6px 8px 6px 13px;
+  border-radius: 20px; background: var(--pl); border: 1px solid rgba(56,189,248,.25);
+  color: var(--t); font-size: 12.5px; font-weight: 600;
+}
+.rb-chip button {
+  width: 17px; height: 17px; border-radius: 50%; border: none; cursor: pointer;
+  background: rgba(255,255,255,.08); color: var(--t2); font-size: 11px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.rb-chip button:hover { background: rgba(251,113,133,.25); color: var(--err); }
+.rb-empty-note { font-size: 12.5px; color: var(--t3); font-style: italic; }
+
+/* ── Nav buttons ── */
+.rb-nav-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.rb-nav-row .rb-left, .rb-nav-row .rb-right { display: flex; gap: 10px; }
+.rb-btn {
+  padding: 12px 22px; border-radius: var(--rs); border: none; cursor: pointer;
+  font-size: 13.5px; font-weight: 700; font-family: 'Space Grotesk', sans-serif;
+  transition: transform .15s, opacity .15s;
+}
+.rb-btn:hover { transform: translateY(-1px); }
+.rb-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.rb-btn-pri { background: linear-gradient(135deg, var(--p), var(--a)); color: var(--bg); box-shadow: var(--glow); }
+.rb-btn-out { background: transparent; border: 1px solid var(--br2); color: var(--t2); }
+.rb-btn-out:hover { border-color: var(--p); color: var(--p); }
+.rb-btn-ghost { background: transparent; color: var(--t3); padding: 12px 8px; }
+
+/* ── Step sidebar nav items reuse .nitem/.sbnav/.sbsec from style.css ── */
+.rb-step-num {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; font-size: 10px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; background: var(--bg3); color: var(--t3);
+}
+.nitem.on .rb-step-num { background: var(--p); color: var(--bg); }
+.nitem.rb-done .rb-step-num { background: rgba(52,224,199,.2); color: var(--a); }
+
+/* ── Mobile step select (hidden on desktop) ── */
+.rb-mobile-select { display: none; margin-bottom: 14px; }
+.rb-mobile-select select {
+  width: 100%; padding: 11px 13px; border-radius: var(--rs); border: 1px solid var(--br2);
+  background: var(--bg2); color: var(--t); font-size: 13.5px; font-weight: 600;
+}
+@media (max-width: 800px) { .rb-mobile-select { display: block; } }
+
+/* ── Result / Preview screen ── */
+.rb-tpl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+@media (max-width: 780px) { .rb-tpl-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .rb-tpl-grid { grid-template-columns: 1fr; } }
+.rb-tpl-card {
+  border: 2px solid var(--br2); border-radius: var(--r); padding: 12px; cursor: pointer;
+  background: var(--bg2); transition: all .15s; text-align: center;
+}
+.rb-tpl-card:hover { border-color: rgba(56,189,248,.45); }
+.rb-tpl-card.on { border-color: var(--p); box-shadow: 0 0 0 3px rgba(56,189,248,.15); }
+.rb-tpl-swatch { height: 64px; border-radius: 7px; margin-bottom: 9px; }
+.rb-tpl-swatch.modern { background: linear-gradient(160deg,#1e293b 0 30%, #fff 30%); }
+.rb-tpl-swatch.professional { background: linear-gradient(180deg,#fff 0 18%, #0f172a 18% 22%, #fff 22%); }
+.rb-tpl-swatch.minimal { background: #fff; border: 1px solid #e5e7eb; }
+.rb-tpl-swatch.standard-ats { background: #fff; border: 1px solid #cbd5e1; background-image: repeating-linear-gradient(#e2e8f0 0 2px, transparent 2px 9px); background-position: 8px 10px; background-size: calc(100% - 16px) 100%; background-repeat: no-repeat; }
+.rb-tpl-swatch.google { background: linear-gradient(160deg,#fff 0 100%); border: 1px solid #e5e7eb; box-shadow: inset 4px 0 0 #4285F4; }
+.rb-tpl-swatch.microsoft { background: linear-gradient(180deg,#fff 0 20%, #2f2f2f 20% 24%, #fff 24%); }
+.rb-tpl-swatch.amazon { background: #fff; border: 1px solid #e5e7eb; box-shadow: inset 0 -4px 0 #FF9900; }
+.rb-tpl-swatch.onecolumn { background: #fff; border: 1px solid #e5e7eb; background-image: linear-gradient(#0f172a 0 3px, transparent 3px); background-position: 8px 10px; background-size: calc(100% - 16px) 100%; background-repeat: no-repeat; }
+.rb-tpl-name { font-size: 12.5px; font-weight: 700; }
+
+.rb-preview-shell {
+  border-radius: var(--rl); border: 1px solid var(--br2); background: var(--card);
+  overflow: hidden; margin-bottom: 16px;
+}
+.rb-preview-tb {
+  display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+  background: var(--bg3); border-bottom: 1px solid var(--br2);
+}
+.rb-dot { width: 9px; height: 9px; border-radius: 50%; }
+.rb-preview-body { max-height: 78vh; overflow-y: auto; background: #E9EBEF; padding: 26px; }
+
+/* The actual printable resume document — deliberately a neutral
+   light theme regardless of the site's dark theme, since resumes
+   are read/printed on white. Scoped under .rb-doc so nothing here
+   can leak into or be affected by style.css. */
+.rb-doc {
+  max-width: 780px; margin: 0 auto; background: #fff; color: #1a1f2b;
+  padding: 42px 46px; font-family: 'Inter', Arial, sans-serif; font-size: 13px;
+  line-height: 1.55; box-shadow: 0 6px 24px rgba(0,0,0,.18); border-radius: 4px;
+}
+.rb-doc h1.rb-doc-name { font-size: 25px; font-weight: 800; margin: 0 0 3px; letter-spacing: .2px; }
+.rb-doc .rb-doc-role { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.rb-doc .rb-doc-contact { font-size: 11px; color: #4b5568; margin-bottom: 18px; }
+.rb-doc .rb-doc-contact span { margin-right: 12px; }
+.rb-doc h2.rb-doc-sec {
+  font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px;
+  margin: 18px 0 8px; padding-bottom: 4px;
+}
+.rb-doc .rb-doc-item { margin-bottom: 10px; }
+.rb-doc .rb-doc-item-top { display: flex; justify-content: space-between; gap: 10px; font-weight: 700; font-size: 13px; }
+.rb-doc .rb-doc-item-sub { font-size: 11.5px; color: #4b5568; margin-bottom: 4px; }
+.rb-doc ul.rb-doc-bullets { margin: 4px 0 0; padding-left: 17px; }
+.rb-doc ul.rb-doc-bullets li { margin-bottom: 2px; }
+.rb-doc .rb-doc-tags { font-size: 11px; color: #475569; margin-top: 3px; }
+.rb-doc .rb-doc-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.rb-doc .rb-doc-chip { font-size: 11px; padding: 3px 10px; border-radius: 20px; }
+
+/* Modern template accent */
+.rb-doc.rb-tpl-modern h1.rb-doc-name, .rb-doc.rb-tpl-modern .rb-doc-role { color: #0EA5E9; }
+.rb-doc.rb-tpl-modern h2.rb-doc-sec { color: #0EA5E9; border-bottom: 2px solid #0EA5E9; }
+.rb-doc.rb-tpl-modern .rb-doc-chip { background: #E0F2FE; color: #075985; }
+
+/* Professional template accent */
+.rb-doc.rb-tpl-professional { padding-top: 0; }
+.rb-doc.rb-tpl-professional .rb-doc-header {
+  background: #0f172a; color: #fff; padding: 28px 46px; margin: 0 -46px 18px;
+}
+.rb-doc.rb-tpl-professional .rb-doc-header h1.rb-doc-name { color: #fff; }
+.rb-doc.rb-tpl-professional .rb-doc-header .rb-doc-role { color: #93c5fd; }
+.rb-doc.rb-tpl-professional .rb-doc-header .rb-doc-contact { color: #cbd5e1; }
+.rb-doc.rb-tpl-professional h2.rb-doc-sec { color: #0f172a; border-bottom: 1px solid #0f172a; }
+.rb-doc.rb-tpl-professional .rb-doc-chip { background: #eef2f7; color: #0f172a; }
+
+/* Minimal template accent */
+.rb-doc.rb-tpl-minimal h1.rb-doc-name, .rb-doc.rb-tpl-minimal .rb-doc-role { color: #111827; }
+.rb-doc.rb-tpl-minimal h2.rb-doc-sec { color: #111827; border-bottom: 1px solid #d1d5db; font-weight: 700; }
+.rb-doc.rb-tpl-minimal .rb-doc-chip { background: #f3f4f6; color: #111827; border: 1px solid #e5e7eb; }
+
+/* Standard ATS template — deliberately the plainest possible layout:
+   single column, no color, no chip pills, just clean text an ATS parser
+   can never choke on. */
+.rb-doc.rb-tpl-standard-ats { font-family: 'Georgia', 'Times New Roman', serif; }
+.rb-doc.rb-tpl-standard-ats h1.rb-doc-name, .rb-doc.rb-tpl-standard-ats .rb-doc-role { color: #000; }
+.rb-doc.rb-tpl-standard-ats h2.rb-doc-sec { color: #000; border-bottom: 1px solid #000; font-weight: 700; }
+.rb-doc.rb-tpl-standard-ats .rb-doc-chip { background: transparent; color: #000; border: 1px solid #000; }
+
+/* Google-style template — clean sans, single accent rule under the name */
+.rb-doc.rb-tpl-google h1.rb-doc-name { color: #202124; border-bottom: 3px solid #4285F4; padding-bottom: 6px; display: inline-block; }
+.rb-doc.rb-tpl-google .rb-doc-role { color: #4285F4; }
+.rb-doc.rb-tpl-google h2.rb-doc-sec { color: #202124; border-bottom: 1px solid #dadce0; }
+.rb-doc.rb-tpl-google .rb-doc-chip { background: #E8F0FE; color: #1967D2; }
+
+/* Microsoft-style template — dark banner header like Professional, cooler grey tone */
+.rb-doc.rb-tpl-microsoft { padding-top: 0; }
+.rb-doc.rb-tpl-microsoft .rb-doc-header { background: #2f2f2f; color: #fff; padding: 28px 46px; margin: 0 -46px 18px; }
+.rb-doc.rb-tpl-microsoft .rb-doc-header h1.rb-doc-name { color: #fff; }
+.rb-doc.rb-tpl-microsoft .rb-doc-header .rb-doc-role { color: #7FBA00; }
+.rb-doc.rb-tpl-microsoft .rb-doc-header .rb-doc-contact { color: #d1d1d1; }
+.rb-doc.rb-tpl-microsoft h2.rb-doc-sec { color: #2f2f2f; border-bottom: 1px solid #2f2f2f; }
+.rb-doc.rb-tpl-microsoft .rb-doc-chip { background: #f2f2f2; color: #2f2f2f; }
+
+/* Amazon-style template — dark banner header, orange accent */
+.rb-doc.rb-tpl-amazon { padding-top: 0; }
+.rb-doc.rb-tpl-amazon .rb-doc-header { background: #131921; color: #fff; padding: 28px 46px; margin: 0 -46px 18px; }
+.rb-doc.rb-tpl-amazon .rb-doc-header h1.rb-doc-name { color: #fff; }
+.rb-doc.rb-tpl-amazon .rb-doc-header .rb-doc-role { color: #FF9900; }
+.rb-doc.rb-tpl-amazon .rb-doc-header .rb-doc-contact { color: #cbd5e1; }
+.rb-doc.rb-tpl-amazon h2.rb-doc-sec { color: #131921; border-bottom: 2px solid #FF9900; }
+.rb-doc.rb-tpl-amazon .rb-doc-chip { background: #FFF3E0; color: #8a5000; }
+
+/* One-Column Professional — no color at all, just strong typographic hierarchy */
+.rb-doc.rb-tpl-onecolumn h1.rb-doc-name, .rb-doc.rb-tpl-onecolumn .rb-doc-role { color: #0f172a; }
+.rb-doc.rb-tpl-onecolumn h2.rb-doc-sec { color: #0f172a; border-bottom: 2px solid #0f172a; }
+.rb-doc.rb-tpl-onecolumn .rb-doc-chip { background: transparent; color: #0f172a; border: 1px solid #0f172a; }
+
+.rb-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+@media (max-width: 700px) { .rb-actions-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px) { .rb-actions-grid { grid-template-columns: 1fr; } }
+.rb-action-card {
+  background: var(--bg3); border: 1px solid var(--br2); border-radius: var(--r);
+  padding: 16px; text-align: center; cursor: pointer; transition: all .15s;
+}
+.rb-action-card:hover { transform: translateY(-2px); border-color: var(--p); box-shadow: var(--sh); }
+.rb-action-i { font-size: 22px; display: block; margin-bottom: 8px; }
+.rb-action-t { font-size: 12.5px; font-weight: 700; }
+.rb-action-d { font-size: 11px; color: var(--t3); margin-top: 3px; }
+
+/* ── Modal (cover letter / LinkedIn summary) ── */
+.rb-modal-bg {
+  display: none; position: fixed; inset: 0; background: rgba(4,8,16,.72);
+  z-index: 500; align-items: center; justify-content: center; padding: 20px;
+}
+.rb-modal-bg.on { display: flex; }
+.rb-modal {
+  width: 100%; max-width: 620px; max-height: 82vh; overflow-y: auto;
+  background: var(--card); border: 1px solid var(--br2); border-radius: var(--rl);
+  padding: 24px; box-shadow: var(--sh);
+}
+.rb-modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.rb-modal-title { font-size: 17px; font-weight: 800; }
+.rb-modal-close {
+  width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--br2); background: var(--bg3);
+  color: var(--t2); cursor: pointer; font-size: 15px;
+}
+.rb-modal textarea {
+  width: 100%; min-height: 260px; padding: 14px; border-radius: var(--rs); border: 1px solid var(--br2);
+  background: var(--bg3); color: var(--t); font-size: 13.5px; line-height: 1.65; font-family: 'Inter', sans-serif;
+  box-sizing: border-box; resize: vertical;
+}
+.rb-modal-loading { text-align: center; padding: 40px 0; color: var(--t2); font-size: 13.5px; }
+
+/* ── Print isolation: only #rb-print-area is visible when printing ── */
+#rb-print-area { display: none; }
+@media print {
+  body.rb-printing > *:not(#rb-print-area) { display: none !important; }
+  body.rb-printing #rb-print-area { display: block !important; }
+  body.rb-printing .rb-doc { box-shadow: none; max-width: 100%; margin: 0; }
+}
+
+/* ── Saved resumes list ── */
+.rb-saved-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.rb-saved-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 14px; border-radius: var(--rs); background: var(--bg3); border: 1px solid var(--br2);
+}
+.rb-saved-meta { font-size: 12.5px; }
+.rb-saved-meta b { display: block; font-size: 13.5px; margin-bottom: 2px; }
+.rb-saved-row-btns { display: flex; gap: 6px; }
+
+/* ── New in this update: quick-pick chips, coding milestones, field
+   warnings, internship guide questions, and profile-score bars ── */
+.rb-quick-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
+.rb-quick-chip {
+  font-size: 11.5px; padding: 5px 11px; border-radius: 20px; cursor: pointer;
+  border: 1px solid var(--br2); background: var(--bg3); color: var(--t2); transition: all .15s;
+}
+.rb-quick-chip:hover { border-color: var(--p); color: var(--p); }
+
+.rb-milestone {
+  display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px; background: rgba(52,224,199,.12); color: #34e0c7;
+}
+
+.rb-field-warn { font-size: 11.5px; color: #fbbf24; margin-top: 4px; }
+
+.rb-guide-qs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.rb-guide-q {
+  font-size: 10.5px; padding: 3px 9px; border-radius: 20px; background: var(--pl);
+  color: var(--p); border: 1px solid rgba(56,189,248,.25);
+}
+
+.rb-score-row { margin-bottom: 16px; }
+.rb-score-label { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; }
+.rb-score-bar { height: 9px; border-radius: 6px; background: var(--bg3); overflow: hidden; }
+.rb-score-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--p), #34e0c7); transition: width .3s; }

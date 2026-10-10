@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResumeAI — Turn Your Resume Into Career Opportunities</title>
+<meta name="description" content="AI-powered resume analysis, ATS scoring, skill-gap detection, career roadmaps, and portfolio generation.">
+<link rel="stylesheet" href="style.css">
+<!-- PDF.js: extracts text from uploaded PDF resumes. defer = doesn't block
+     page load if this CDN is slow/unreachable; TXT uploads work regardless. -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- Mammoth: extracts text from uploaded DOCX resumes. Same defer reasoning. -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+</head>
+<body>
+
+<!-- ═══════════ LANDING ═══════════ -->
+<div id="lp" class="page active">
+  <nav class="lnav">
+    <div class="llogo" onclick="showPage('lp')">
+      <div class="llogo-i">R</div><div class="llogo-t">ResumeAI</div>
+    </div>
+    <div class="lnav-r">
+      <a href="#feats">Features</a>
+      <a href="#how">How it Works</a>
+      <button class="btn-cta" onclick="startFree()">Start Free →</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">🚀 AI-Powered Career Intelligence</div>
+    <h1 class="hero-h1">Build a Career That<br><span>Actually Gets You Hired</span></h1>
+    <p class="hero-sub">Upload your resume → get instant AI analysis: ATS score, skill gaps, job matching, career roadmap, YouTube tutorials &amp; auto-generated portfolio website. All in 30 seconds.</p>
+    <div class="hero-btns">
+      <button class="btn-hp" onclick="startFree()">🚀 Analyze My Resume Free</button>
+    </div>
+    <div class="hstats">
+      <div class="hs"><div class="hs-n">16</div><div class="hs-l">AI Features</div></div>
+      <div class="hs"><div class="hs-n">30s</div><div class="hs-l">Full Analysis</div></div>
+      <div class="hs"><div class="hs-n">100%</div><div class="hs-l">Free</div></div>
+      <div class="hs"><div class="hs-n">0</div><div class="hs-l">Data Stored</div></div>
+    </div>
+  </section>
+
+  <section class="lfeats" id="feats">
+    <h2 class="stitle">Everything you need to land your dream job</h2>
+    <p class="ssub">ResumeAI combines 5 premium tools into one free platform — powered by Claude AI.</p>
+    <div class="fg">
+      <div class="fc"><div class="fc-i">🤖</div><div class="fc-t">ATS Analysis</div><div class="fc-d">Get your ATS score, compatibility grade &amp; exact keywords to add for maximum recruiter visibility.</div></div>
+      <div class="fc"><div class="fc-i">💪</div><div class="fc-t">Resume Strength</div><div class="fc-d">Section-by-section evaluation with scores and actionable improvement tips.</div></div>
+      <div class="fc"><div class="fc-i">🔍</div><div class="fc-t">Skill Gap Analysis</div><div class="fc-d">Compare skills against industry standards &amp; get a prioritized learning list.</div></div>
+      <div class="fc"><div class="fc-i">🎯</div><div class="fc-t">Job Role Prediction</div><div class="fc-d">AI predicts your top 5 matching roles with confidence percentages.</div></div>
+      <div class="fc"><div class="fc-i">🗺️</div><div class="fc-t">Career Roadmap</div><div class="fc-d">Month-by-month action plan with skills, courses &amp; certifications to pursue.</div></div>
+      <div class="fc"><div class="fc-i">▶️</div><div class="fc-t">YouTube Recs</div><div class="fc-d">Curated video tutorials for every missing skill — matched to your level.</div></div>
+      <div class="fc"><div class="fc-i">🛠️</div><div class="fc-t">Project Ideas</div><div class="fc-d">Beginner to advanced projects to build your portfolio and impress recruiters.</div></div>
+      <div class="fc"><div class="fc-i">🌐</div><div class="fc-t">Portfolio Generator</div><div class="fc-d">Auto-generate a stunning personal portfolio website — download as HTML instantly.</div></div>
+      <div class="fc"><div class="fc-i">🏆</div><div class="fc-t">Recommended Certificates</div><div class="fc-d">AI-recommended certs based on your skill gaps — AWS, Azure, Google Cloud, ML and more with cost &amp; prep estimates.</div></div>
+    </div>
+  </section>
+
+  <section class="lhow" id="how">
+    <div class="stag">⚡ Process</div>
+    <h2 class="stitle">How it works</h2>
+    <div class="how-g">
+      <div class="how-s"><div class="how-n">1</div><div class="how-t">Open the App</div><div class="how-d">No sign-up, no account, no password — just start.</div></div>
+      <div class="how-s"><div class="how-n">2</div><div class="how-t">Upload Resume</div><div class="how-d">Drop your PDF, DOCX or TXT resume.</div></div>
+      <div class="how-s"><div class="how-n">3</div><div class="how-t">AI Analyzes</div><div class="how-d">11 analysis modules run in ~20 seconds.</div></div>
+      <div class="how-s"><div class="how-n">4</div><div class="how-t">Get Results</div><div class="how-d">16 feature tabs + portfolio website download.</div></div>
+    </div>
+  </section>
+
+  <section class="lcta">
+    <div class="stag">🎓 Final Year Major Project</div>
+    <h2 class="stitle">Start your AI career journey today</h2>
+    <p class="ssub">LinkedIn Career Coach + Resume Worded + Rezi + Coursera — all in one free platform. No fees, no data stored.</p>
+    <div class="hero-btns" style="margin-top:26px">
+      <button class="btn-hp" onclick="startFree()">🚀 Get Started Free</button>
+    </div>
+  </section>
+
+  <footer class="lfooter">
+    <div>© 2025 ResumeAI · Powered by Claude AI (Anthropic)</div>
+    <div class="lfooter-links"><a href="#feats">Features</a><a href="#how">How it works</a><a href="portfolio/">Portfolio</a></div>
+  </footer>
+</div>
+
+<!-- ═══════════ DASHBOARD ═══════════ -->
+<div id="dp" class="page">
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-logo" onclick="showPage('lp')">
+      <div class="sb-logo-i">R</div><div class="sb-logo-t">ResumeAI</div>
+    </div>
+    <nav class="sbnav">
+      <div class="sbsec">Build</div>
+      <a class="nitem" href="resume-builder.html"><span class="nico">🧩</span>Resume Builder</a>
+      <div class="sbsec">Overview</div>
+      <div class="nitem on" data-tab="t-parsed"><span class="nico">📄</span>Resume Data</div>
+      <div class="sbsec">Analysis</div>
+      <div class="nitem" data-tab="t-ats"><span class="nico">🤖</span>ATS Analysis</div>
+      <div class="nitem" data-tab="t-str"><span class="nico">💪</span>Resume Strength</div>
+      <div class="nitem" data-tab="t-sk"><span class="nico">⚡</span>Skill Analysis</div>
+      <div class="nitem" data-tab="t-gap"><span class="nico">🔍</span>Skill Gap</div>
+      <div class="nitem" data-tab="t-prob"><span class="nico">⚠️</span>Problems Found</div>
+      <div class="nitem" data-tab="t-sug"><span class="nico">✨</span>AI Suggestions</div>
+      <div class="nitem" data-tab="t-roles"><span class="nico">🎯</span>Job Roles</div>
+      <div class="sbsec">Career</div>
+      <div class="nitem" data-tab="t-career"><span class="nico">🚀</span>Career Guidance</div>
+      <div class="nitem" data-tab="t-trend"><span class="nico">🔥</span>Trending Technologies</div>
+      <div class="nitem" data-tab="t-road"><span class="nico">🗺️</span>Career Roadmap</div>
+      <div class="nitem" data-tab="t-res"><span class="nico">📚</span>Learning Resources</div>
+      <div class="nitem" data-tab="t-yt"><span class="nico">▶️</span>YouTube Videos</div>
+      <div class="nitem" data-tab="t-proj"><span class="nico">🛠️</span>Project Ideas</div>
+      <div class="nitem" data-tab="t-cert"><span class="nico">🏆</span>Recommended Certificates</div>
+      <div class="sbsec">Portfolio</div>
+      <div class="nitem" data-tab="t-pf"><span class="nico">🌐</span>Portfolio Website</div>
+      <div class="nitem" data-tab="t-dl"><span class="nico">⬇️</span>Download Reports</div>
+    </nav>
+    <div class="sbfoot">
+      <div class="urow">
+        <div class="uav"><span id="av-t">U</span></div>
+        <div><div class="uname" id="u-n">User</div><div class="uemail" id="u-e">user@email.com</div></div>
+      </div>
+      <button class="btn-lo" onclick="doLogout()">🚪 Logout</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="mob-topbar">
+      <div class="mob-logo">ResumeAI</div>
+      <button class="btn-up" onclick="triggerFile()" style="font-size:11px;padding:6px 13px">+ Upload</button>
+    </div>
+
+    <div class="mob-nav">
+      <button class="mob-nav-btn on" data-tab="t-parsed"><span>📄</span>Resume</button>
+      <button class="mob-nav-btn" data-tab="t-ats"><span>🤖</span>ATS</button>
+      <button class="mob-nav-btn" data-tab="t-sk"><span>⚡</span>Skills</button>
+      <button class="mob-nav-btn" data-tab="t-career"><span>🚀</span>Career</button>
+      <button class="mob-nav-btn" data-tab="t-pf"><span>🌐</span>Portfolio</button>
+    </div>
+
+    <div class="topbar">
+      <div><div class="tb-title">Career Intelligence Dashboard</div><div class="tb-sub">Upload resume → all 16 AI features auto-run</div></div>
+      <button class="btn-up" onclick="triggerFile()">+ Upload Resume</button>
+    </div>
+
+    <input type="file" id="fi" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" style="display:none" onchange="onFileChange(this)">
+
+    <div id="uzone" class="uzone">
+      <span class="uz-ico">📄</span>
+      <div class="uz-title">Drop your resume here</div>
+      <div class="uz-sub">AI runs all 16 features automatically — ATS score, skill gaps, career roadmap, portfolio website and more.<br>Supports <strong>PDF</strong>, <strong>DOCX</strong> and <strong>TXT</strong> files.</div>
+      <div class="fmts"><span class="fmt">📕 PDF</span><span class="fmt">📘 DOCX</span><span class="fmt">📝 TXT</span></div>
+      <button class="btn-ch" onclick="triggerFile()">📂 Choose File</button>
+    </div>
+
+    <div class="fbar" id="fbar">
+      <span style="font-size:19px">📄</span>
+      <span class="fb-n" id="fb-n"></span>
+      <span class="fb-s" id="fb-s"></span>
+      <span class="fb-ok">✓ Reading file…</span>
+    </div>
+
+    <div class="scanning" id="scanning">
+      <div class="scan-beam"></div>
+      <span class="sc-ico">🤖</span>
+      <div class="sc-title">AI is analyzing your resume…</div>
+      <div class="sc-sub">Running 11 intelligent modules. Takes ~20 seconds.</div>
+      <div class="stepslist" id="stepslist"></div>
+    </div>
+
+    <div class="results" id="results">
+      <div class="srow2">
+        <div class="sc"><div class="sc-v" id="sv-ats">—</div><div class="sc-l">🤖 ATS Score</div></div>
+        <div class="sc"><div class="sc-v" id="sv-str">—</div><div class="sc-l">💪 Resume Strength</div></div>
+        <div class="sc"><div class="sc-v" id="sv-sk">—</div><div class="sc-l">⚡ Skills Found</div></div>
+        <div class="sc"><div class="sc-v" id="sv-mis">—</div><div class="sc-l">🔍 Skills Missing</div></div>
+      </div>
+
+      <div class="twrap">
+        <div class="thead">
+          <button class="tbtn on" data-tab="t-parsed">📄 Resume</button>
+          <button class="tbtn" data-tab="t-ats">🤖 ATS</button>
+          <button class="tbtn" data-tab="t-str">💪 Strength</button>
+          <button class="tbtn" data-tab="t-sk">⚡ Skills</button>
+          <button class="tbtn" data-tab="t-gap">🔍 Gap</button>
+          <button class="tbtn" data-tab="t-prob">⚠️ Problems</button>
+          <button class="tbtn" data-tab="t-sug">✨ Suggestions</button>
+          <button class="tbtn" data-tab="t-roles">🎯 Roles</button>
+          <button class="tbtn" data-tab="t-career">🚀 Career</button>
+          <button class="tbtn" data-tab="t-trend">🔥 Trending Tech</button>
+          <button class="tbtn" data-tab="t-road">🗺️ Roadmap</button>
+          <button class="tbtn" data-tab="t-res">📚 Resources</button>
+          <button class="tbtn" data-tab="t-yt">▶️ YouTube</button>
+          <button class="tbtn" data-tab="t-proj">🛠️ Projects</button>
+          <button class="tbtn" data-tab="t-cert">🏆 Rec. Certs</button>
+          <button class="tbtn" data-tab="t-pf">🌐 Portfolio</button>
+          <button class="tbtn" data-tab="t-dl">⬇️ Download</button>
+        </div>
+
+        <div class="tpanel on" id="t-parsed">
+          <div class="sh"><div class="sh-t">📄 Resume Information</div><div class="sh-s">Extracted data from your resume</div></div>
+          <div id="r-parsed"><div class="iban"><span>💡</span>Upload your resume to see parsed data.</div></div>
+        </div>
+        <div class="tpanel" id="t-ats">
+          <div class="sh"><div class="sh-t">🤖 ATS Analysis</div><div class="sh-s">How your resume performs with Applicant Tracking Systems</div></div>
+          <div class="g2" style="margin-bottom:14px">
+            <div class="scard"><div class="s-num" id="ats-n">—</div><div class="s-lbl2">ATS Score &nbsp;<span id="ats-g" style="background:var(--pl);padding:2px 10px;border-radius:20px;font-size:12px;font-weight:800;color:var(--p)">—</span></div><div class="sbar"><div class="sfill" id="ats-b"></div></div></div>
+            <div class="card"><div class="ct">📋 Compatibility Report</div><p id="ats-r" style="font-size:13px;color:var(--t2);line-height:1.7">—</p></div>
+          </div>
+          <div class="card"><div class="ct">⚡ Improvement Suggestions</div><div id="ats-s"></div></div>
+          <div class="card" style="margin-top:14px"><div class="ct">🧪 Detailed ATS Breakdown</div><div id="ats-detailed"></div></div>
+          <div class="card" style="margin-top:14px"><div class="ct">🧩 What's Missing</div><div id="ats-missing"></div></div>
+        </div>
+        <div class="tpanel" id="t-str">
+          <div class="sh"><div class="sh-t">💪 Resume Strength</div><div class="sh-s">Section-by-section quality evaluation</div></div>
+          <div class="g2" style="margin-bottom:14px">
+            <div class="scard"><div class="s-num" id="str-n">—</div><div class="s-lbl2">Overall Strength Score</div><div class="sbar"><div class="sfill" id="str-b"></div></div></div>
+            <div class="card"><div class="ct">📊 Section Scores</div><div id="str-s"></div></div>
+          </div>
+        </div>
+        <div class="tpanel" id="t-sk">
+          <div class="sh"><div class="sh-t">⚡ Skill Analysis</div><div class="sh-s">All skills detected from your resume</div></div>
+          <div class="g2">
+            <div class="card"><div class="ct">💻 Technical</div><div class="bdgs" id="sk-t"></div></div>
+            <div class="card"><div class="ct">🤝 Soft Skills</div><div class="bdgs" id="sk-s"></div></div>
+            <div class="card"><div class="ct">🛠️ Tools</div><div class="bdgs" id="sk-to"></div></div>
+            <div class="card"><div class="ct">⚙️ Frameworks</div><div class="bdgs" id="sk-f"></div></div>
+          </div>
+        </div>
+        <div class="tpanel" id="t-gap">
+          <div class="sh"><div class="sh-t">🔍 Skill Gap Analysis</div><div class="sh-s">Missing skills for your target roles</div></div>
+          <div class="card mb13"><div class="ct">❌ Missing Skills</div><div class="bdgs" id="gap-m"></div></div>
+          <div class="g2">
+            <div class="card"><div class="ct">📊 Industry Comparison</div><p id="gap-c" style="font-size:13px;color:var(--t2);line-height:1.7">—</p></div>
+            <div class="card"><div class="ct">⭐ Priority Skills</div><div class="bdgs" id="gap-p"></div></div>
+          </div>
+        </div>
+        <div class="tpanel" id="t-prob">
+          <div class="sh"><div class="sh-t">⚠️ Problems Detected</div><div class="sh-s">Issues with impact and actionable fixes</div></div>
+          <div id="r-prob"><div class="iban"><span>💡</span>Upload resume to detect issues.</div></div>
+        </div>
+        <div class="tpanel" id="t-sug">
+          <div class="sh"><div class="sh-t">✨ AI Suggestions</div><div class="sh-s">Better wording and ATS-optimized rewrites</div></div>
+          <div id="r-sug"><div class="iban"><span>💡</span>Upload resume to get suggestions.</div></div>
+        </div>
+        <div class="tpanel" id="t-roles">
+          <div class="sh"><div class="sh-t">🎯 Job Role Prediction</div><div class="sh-s">AI-predicted matching roles</div></div>
+          <div style="display:flex;flex-direction:column;gap:9px" id="r-roles"><div class="iban"><span>💡</span>Upload resume to predict roles.</div></div>
+        </div>
+        <div class="tpanel" id="t-career">
+          <div class="sh"><div class="sh-t">🚀 Career Guidance</div><div class="sh-s">Personalized AI career recommendations</div></div>
+          <div class="g2" style="margin-bottom:13px">
+            <div class="card"><div class="ct">💡 Recommendations</div><div id="cr-r"></div></div>
+            <div class="card"><div class="ct">🏢 Target Industries</div><div class="bdgs" id="cr-i"></div></div>
+          </div>
+          <div class="card"><div class="ct">📈 Growth Opportunities</div><div id="cr-g"></div></div>
+        </div>
+        <div class="tpanel" id="t-trend">
+          <div class="sh"><div class="sh-t">🔥 Trending Technologies in the Market</div><div class="sh-s">Newly popular &amp; updated technologies employers are hiring for right now</div></div>
+          <div id="trend-note" style="font-size:13px;color:var(--t3);margin-bottom:12px"></div>
+          <div id="r-trend"><div class="iban"><span>💡</span>Upload resume to see current market trends.</div></div>
+        </div>
+        <div class="tpanel" id="t-road">
+          <div class="sh"><div class="sh-t">🗺️ Career Roadmap</div><div class="sh-s">Month-by-month personalized action plan</div></div>
+          <div class="roadmap" id="r-road"><div class="iban" style="margin-left:-24px"><span>💡</span>Upload resume to generate roadmap.</div></div>
+        </div>
+        <div class="tpanel" id="t-res">
+          <div class="sh"><div class="sh-t">📚 Learning Resources</div><div class="sh-s">Curated resources per missing skill</div></div>
+          <div id="r-res"><div class="iban"><span>💡</span>Upload resume to get resources.</div></div>
+        </div>
+        <div class="tpanel" id="t-yt">
+          <div class="sh"><div class="sh-t">▶️ YouTube Recommendations</div><div class="sh-s">Best tutorials for your skill gaps</div></div>
+          <div class="g3" id="r-yt"><div class="iban"><span>💡</span>Upload resume for YouTube recommendations.</div></div>
+        </div>
+        <div class="tpanel" id="t-proj">
+          <div class="sh"><div class="sh-t">🛠️ Project Recommendations</div><div class="sh-s">Projects matched to your skill level</div></div>
+          <div style="margin-bottom:20px"><h3 style="font-size:13.5px;font-weight:700;color:var(--a);margin-bottom:11px">🌱 Beginner</h3><div class="g3" id="pr-b"></div></div>
+          <div style="margin-bottom:20px"><h3 style="font-size:13.5px;font-weight:700;color:var(--warn);margin-bottom:11px">⚡ Intermediate</h3><div class="g3" id="pr-i"></div></div>
+          <div><h3 style="font-size:13.5px;font-weight:700;color:var(--err);margin-bottom:11px">🔥 Advanced</h3><div class="g3" id="pr-a"></div></div>
+        </div>
+        <div class="tpanel" id="t-cert">
+          <div class="sh"><div class="sh-t">🏆 Recommended Certificates</div><div class="sh-s">AI-recommended certifications based on your skill gaps and target career</div></div>
+          <div class="g2" id="r-cert"><div class="iban"><span>💡</span>Upload resume for AI-recommended certificate suggestions.</div></div>
+        </div>
+        <div class="tpanel" id="t-pf">
+          <div class="sh fbet">
+            <div><div class="sh-t">🌐 AI Portfolio Generator</div><div class="sh-s">Auto-generated professional portfolio from your resume</div></div>
+            <button class="btn-up" onclick="dlPortfolio()">⬇️ Download HTML</button>
+          </div>
+          <div class="g2" style="margin-bottom:14px">
+            <div class="card">
+              <div class="ct">👤 Identity</div>
+              <div style="font-size:20px;font-weight:800;margin-bottom:2px" id="pf-n">—</div>
+              <div style="font-size:13.5px;color:var(--p);margin-bottom:11px" id="pf-r">—</div>
+              <div class="bdgs"><span class="bdg bt">📱 Responsive</span><span class="bdg bt">🌙 Dark Theme</span><span class="bdg bt">✨ Glassmorphism</span><span class="bdg bt">⬇️ Download</span></div>
+            </div>
+            <div class="card">
+              <div class="ct">📋 Sections</div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <div style="padding:7px 9px;background:var(--bg3);border-radius:7px;font-size:12.5px">🏠 Hero — Split layout with profile image &amp; CTA</div>
+                <div style="padding:7px 9px;background:var(--bg3);border-radius:7px;font-size:12.5px">👤 About — Career summary &amp; education</div>
+                <div style="padding:7px 9px;background:var(--bg3);border-radius:7px;font-size:12.5px">⚡ Skills — Animated skill cards</div>
+                <div style="padding:7px 9px;background:var(--bg3);border-radius:7px;font-size:12.5px">🛠️ Projects — 3-column responsive grid</div>
+                <div style="padding:7px 9px;background:var(--bg3);border-radius:7px;font-size:12.5px">🏆 Recommended Certificates — Tailored to skill gaps</div>
+                <div style="padding:7px 9px;background:var(--bg3);border-radius:7px;font-size:12.5px">📬 Contact — Email, GitHub &amp; LinkedIn</div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="ct">🎨 Choose a Template</div>
+            <div class="pf-tpl-grid" id="pf-tpl-grid">
+              <div class="pf-tpl-card active" data-tpl="t1" onclick="selectPfTemplate('t1')">
+                <div class="pf-tpl-swatch t1"></div>
+                <div class="pf-tpl-name">Midnight Hero</div>
+              </div>
+              <div class="pf-tpl-card" data-tpl="t2" onclick="selectPfTemplate('t2')">
+                <div class="pf-tpl-swatch t2"></div>
+                <div class="pf-tpl-name">App Shell</div>
+              </div>
+              <div class="pf-tpl-card" data-tpl="t3" onclick="selectPfTemplate('t3')">
+                <div class="pf-tpl-swatch t3"></div>
+                <div class="pf-tpl-name">Editorial</div>
+              </div>
+              <div class="pf-tpl-card" data-tpl="t4" onclick="selectPfTemplate('t4')">
+                <div class="pf-tpl-swatch t4"></div>
+                <div class="pf-tpl-name">Minimal</div>
+              </div>
+              <div class="pf-tpl-card" data-tpl="t5" onclick="selectPfTemplate('t5')">
+                <div class="pf-tpl-swatch t5"></div>
+                <div class="pf-tpl-name">Vivid Grid</div>
+              </div>
+            </div>
+          </div>
+          <div class="pfwrap">
+            <div class="pf-tb">
+              <div class="pf-dots"><div class="pf-dot r"></div><div class="pf-dot y"></div><div class="pf-dot g"></div></div>
+              <div class="pf-url">🔒 yourname.portfolio.dev</div>
+            </div>
+            <div class="pf-body" id="pf-body">
+              <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--t3);font-size:14px;padding:36px;text-align:center">📄 Upload your resume to preview your AI-generated portfolio</div>
+            </div>
+          </div>
+        </div>
+        <div class="tpanel" id="t-dl">
+          <div class="sh"><div class="sh-t">⬇️ Download Reports</div><div class="sh-s">Export your analysis in multiple formats</div></div>
+          <div class="dlgrid">
+            <div class="dlcard" onclick="dlReport()"><div class="dl-i">📊</div><div class="dl-t">Full Analysis Report</div><div class="dl-d">ATS, skills, problems, roadmap &amp; recommendations as TXT</div></div>
+            <div class="dlcard" onclick="dlPortfolio()"><div class="dl-i">🌐</div><div class="dl-t">Portfolio Website</div><div class="dl-d">Ready-to-deploy portfolio as a standalone HTML file</div></div>
+            <div class="dlcard" onclick="toast('Portfolio tab → Ctrl+P → Save as PDF','ok')"><div class="dl-i">📄</div><div class="dl-t">Resume PDF</div><div class="dl-d">Portfolio tab → press Ctrl+P → Save as PDF in browser</div></div>
+          </div>
+          <div class="iban mt13"><span>🔒</span> All data stays private — nothing stored on any server. Everything runs locally in your browser.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</div>
+
+<script src="app.js"></script>
+<!-- ═══════════════════════════════════════════════════════════════
+     Resume Builder bridge (ADDED — does not modify app.js or any
+     existing function above). If the new Resume Builder page
+     (resume-builder.html) handed off a generated resume, this picks
+     it up and feeds it into the EXISTING analysis pipeline
+     (S.txt + startAnalysis() + renderAll()) exactly as if the user
+     had uploaded a file — no duplicate analysis code, no changes to
+     any existing feature. ═══════════════════════════════════════════ -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var raw = localStorage.getItem('ra_builder_handoff');
+  if (!raw) return;
+  localStorage.removeItem('ra_builder_handoff');
+  var handoff;
+  try { handoff = JSON.parse(raw); } catch (e) { return; }
+  if (!handoff || !handoff.text) return;
+
+  (async function () {
+    if (typeof S !== 'undefined' && !S.user) {
+      signInUser(handoff.email || 'guest@resumeai.app', handoff.name || 'Guest User');
+    } else {
+      showPage('dp');
+    }
+    S.txt = handoff.text;
+    await startAnalysis();
+    if (handoff.targetTab) {
+      var item = document.querySelector('.nitem[data-tab="' + handoff.targetTab + '"]');
+      if (item) item.click();
+    }
+  })();
+});
+</script>
+</body>
+</html>

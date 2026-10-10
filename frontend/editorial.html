@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Editorial</title>
+<link rel="stylesheet" href="editorial.css">
+</head>
+<body>
+
+<div class="v2-page">
+  <div class="v2-glow"></div>
+
+  <nav class="v2-rail" id="v2-rail" aria-label="Page sections"></nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="v2-hero" id="hero">
+      <p class="v2-hero-tag" id="v2-headline"></p>
+      <h1 class="v2-hero-name" id="v2-name"></h1>
+      <p class="v2-hero-tagline" id="v2-tagline"></p>
+      <div class="v2-hero-actions">
+        <div class="v2-contact-socials" id="v2-hero-socials"></div>
+        <a class="v2-cv-link" id="v2-cv-link" href="#" download>Download CV</a>
+      </div>
+      <div class="v2-scroll-hint">
+        <span class="v2-bounce">↓</span>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="v2-section" id="about">
+      <p class="v2-tag">01 — About</p>
+      <div class="v2-about-row">
+        <div class="v2-about-avatar" id="v2-avatar"></div>
+        <div>
+          <p class="v2-lede" id="v2-lede"></p>
+          <div class="v2-about-rest" id="v2-about-rest"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="v2-section" id="experience">
+      <p class="v2-tag">02 — Experience</p>
+      <div class="v2-exp-list" id="v2-exp-list"></div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="v2-proj-section" id="projects">
+      <div class="v2-proj-head"><p class="v2-tag">03 — Projects</p></div>
+      <div class="v2-proj-rail" id="v2-proj-rail"></div>
+    </section>
+
+    <!-- BACKGROUND -->
+    <section class="v2-section" id="background">
+      <p class="v2-tag">04 — Background</p>
+      <div class="v2-bg-grid">
+        <div>
+          <h3 class="v2-bg-h3">Education</h3>
+          <div id="v2-edu-list"></div>
+          <div id="v2-cert-wrap"></div>
+        </div>
+        <div>
+          <h3 class="v2-bg-h3">Skills</h3>
+          <div id="v2-skill-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="v2-section" id="contact">
+      <p class="v2-tag">05 — Contact</p>
+      <h2 class="v2-contact-h2">Let's build<br>something <span class="v2-grad-text">worth shipping.</span></h2>
+      <a class="v2-contact-email" id="v2-contact-email" href="#"></a>
+      <div class="v2-contact-socials" id="v2-contact-socials"></div>
+      <footer class="v2-footer">
+        <span id="v2-footer-name"></span>
+        <span>Built with ResumeAI</span>
+      </footer>
+    </section>
+  </main>
+</div>
+
+<script src="portfolio-data.js"></script>
+<script src="editorial.js"></script>
+</body>
+</html>
