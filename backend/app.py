@@ -24,7 +24,7 @@ import requests
 # Setup
 # ─────────────────────────────────────────────────────────────
 
-load_dotenv()  # loads variables from a local .env file if present
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend"))
